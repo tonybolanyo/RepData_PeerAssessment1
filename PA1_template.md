@@ -1,9 +1,4 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
@@ -12,11 +7,10 @@ First of all we clean the workspace as you can read on https://support.rstudio.c
 
 The scripts stops if no file ```activity.zip``` was found in working directory or it couldn't be unzipped.
 
-```{r echo=FALSE, "Seeting working directory"}
-setwd("T:/Formacion/Data Scientist/05 Reproducible research/Assignment 1/RepData_PeerAssessment1/")
-```
 
-```{r "Clean workspace and unzip data file"}
+
+
+```r
 rm(list = ls())
 zipfile <- "activity.zip"
 if (!file.exists(zipfile)) {
@@ -33,7 +27,8 @@ tryCatch({
 
 Once we have tha CSV file, we import its data into activity data.frame.
 
-```{r "Load CSV data file into activity data.frame"}
+
+```r
 activity <- read.csv("activity.csv")
 ```
 
