@@ -165,6 +165,13 @@ p</code></pre>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
+<p>AS I’m in Sapin, first of all I’m going to change locale to help understand script code for week days.</p>
+<pre class="r"><code>Sys.setlocale(&quot;LC_TIME&quot;,&quot;English&quot;)</code></pre>
+<pre><code>## [1] &quot;English_United States.1252&quot;</code></pre>
+<p>Now we add a new factor column indicating if is weekday or weekend day</p>
+<pre class="r"><code>noNa$weekdays &lt;- factor(format(noNa$date, &quot;%A&quot;))
+levels(noNa$weekdays) &lt;- list(weekday = c(&quot;Nomday&quot;,&quot;Tuesday&quot;,&quot;Wednesday&quot;,&quot;Thursday&quot;,&quot;Friday&quot;), weekend = c(&quot;Saturday&quot;,&quot;Sunday&quot;))</code></pre>
+<p>And compare time series between two kind of days</p>
 </div>
 
 

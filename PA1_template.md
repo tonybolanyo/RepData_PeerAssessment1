@@ -205,3 +205,25 @@ median(steps_by_day$steps)
 We could see an increase number of days at central bar (around mean), but not specially remarkable.
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+AS I'm in Sapin, first of all I'm going to change locale to help understand script code for week days.
+
+
+```r
+Sys.setlocale("LC_TIME","English")
+```
+
+```
+## [1] "English_United States.1252"
+```
+Now we add a new factor column indicating if is weekday or weekend day
+ 
+
+```r
+noNa$weekdays <- factor(format(noNa$date, "%A"))
+levels(noNa$weekdays) <- list(weekday = c("Nomday","Tuesday","Wednesday","Thursday","Friday"), weekend = c("Saturday","Sunday"))
+```
+
+And compare time series between two kind of days
+
+
