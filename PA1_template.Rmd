@@ -144,4 +144,14 @@ AS I'm in Sapin, first of all I'm going to change locale to help understand scri
 ```{r "Change locale"}
 Sys.setlocale("LC_TIME","English")
 ```
+Now we add a new factor column indicating if is weekday or weekend day
+ 
+```{r "Adding weekday/weekend column"}
+noNa$weekdays <- factor(format(noNa$date, "%A"))
+levels(noNa$weekdays) <- list(weekday = c("Nomday","Tuesday","Wednesday","Thursday","Friday"), weekend = c("Saturday","Sunday"))
+```
 
+And compare time series between two kind of days
+
+```{r "Comparing steps average between weekday and weekend"}
+```
