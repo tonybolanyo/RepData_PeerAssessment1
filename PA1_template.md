@@ -1,9 +1,10 @@
 # Reproducible Research: Peer Assessment 1
+Tony G. Bolaño  
 
 
 ## Loading and preprocessing the data
 
-First of all we clean the workspace as you can read on https://support.rstudio.com/hc/en-us/articles/200711843-Working-Directories-and-Workspaces and unzip the data file, which create a ```activity.csv``` file. If ```activity.csv``` exists it will be overwritten.
+First of all we unzip the data file, which extracts ```activity.csv``` file. If ```activity.csv``` exists it will be overwritten.
 
 The scripts stops if no file ```activity.zip``` was found in working directory or it couldn't be unzipped.
 
@@ -11,7 +12,6 @@ The scripts stops if no file ```activity.zip``` was found in working directory o
 
 
 ```r
-rm(list = ls())
 zipfile <- "activity.zip"
 if (!file.exists(zipfile)) {
     stop ("No activity.zip zipped data file found on working directory")
@@ -40,7 +40,11 @@ First we calculate total steps by day using ```aggregate``` function and plot an
 
 ```r
 steps_by_day <- aggregate(steps ~ date, activity, sum)
-hist(steps_by_day$steps, main = "Steps taken by day", xlab = "Num. of steps")
+library(ggplot2)
+p <- ggplot(steps_by_day, aes(x = (steps)))
+p <- p + labs( x = "Steps", y = "Count of days", title = "Histogram: Steps taken per day")
+p <- p + geom_histogram(binwidth = 3000 ,aes(fill = ..count..))
+p
 ```
 
 ![](PA1_template_files/figure-html/Steps by day-1.png) 
@@ -66,6 +70,33 @@ median(steps_by_day$steps)
 
 ## What is the average daily activity pattern?
 
+First we calculate the mean of steps on each five minutes interval. and draw a time series plot, marking the value of max. average steps at the top of the line.
+
+
+```r
+int_avg <- aggregate(steps ~ interval, activity, mean)
+
+p <- ggplot( int_avg, aes(x = interval, y = steps)) + geom_line(colour = "#0000CC")
+p <- p + labs(x = "Interval", y = "Steps average", title = "Steps average by time interval")
+p
+```
+
+![](PA1_template_files/figure-html/Average steps by interval-1.png) 
+
+With this data.frame we calculate max value for steps and which interval correspond to that value.
+
+
+```r
+maxavg <- max(int_avg$steps)
+maxint <- int_avg[int_avg$steps == maxavg,"interval"]
+maxint
+```
+
+```
+## [1] 835
+```
+
+As you can see, the max average of steps is around **206** steps at **835** interval.
 
 
 ## Imputing missing values
