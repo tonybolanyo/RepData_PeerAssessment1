@@ -35,7 +35,34 @@ activity <- read.csv("activity.csv")
 
 ## What is mean total number of steps taken per day?
 
+First we calculate total steps by day using ```aggregate``` function and plot an histogram with resulting data.frame.
 
+
+```r
+steps_by_day <- aggregate(steps ~ date, activity, sum)
+hist(steps_by_day$steps, main = "Steps taken by day", xlab = "Num. of steps")
+```
+
+![](PA1_template_files/figure-html/Steps by day-1.png) 
+
+And now calculate mean and median
+
+
+```r
+mean(steps_by_day$steps)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
+median(steps_by_day$steps)
+```
+
+```
+## [1] 10765
+```
 
 ## What is the average daily activity pattern?
 
